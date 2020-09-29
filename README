@@ -1,1 +1,49 @@
-# Bayesian_Interpretation_Covid_Test_Result
+Chained Bayesian: Interpreting a Positive COVID-19 Test Result
+
+Bayesian logic can be used to compute probabilities in your daily life. It makes your subjective belief (prior probability), uncertainties, and assumptions explicit in a simple, elegant logic. Moreover, it can be updated with new information, making it more akin to how we actually make sense of the world, weigh risks, and make decisions. I was curious how it could help to answer the following question:
+
+What is the probability of having had COVID-19, given a positive antibody test result? What about given two positive antibody test results?
+
+In this case:
+
+P (A | B) is the the probability of having had COVID-19 given a positive antibody test result (posterior probability)
+
+P (B | A) is the probability of having a positive test result given you’ve had COVID-19.
+
+P (A) is the probability of having COVID-19 in the first place (prior probability).
+
+P (B) is the probability of getting a positive test result (sum of true positives and false positives).
+
+Let’s simplify the notation and try it out to see what we learn.
+
+p = xy / (xy + z(1-x))
+
+Prior Probability (x): Initial estimate of probability of having COVID-19. In this case, I’ve been practicing social distancing so I will simply use the an estimate of the prevalence of the disease. As of today, there are roughly 1.9 million cases in the U.S. and, given a population of 328 million, this means a prevalence of 1.9 million / 328 million = 0.6% (in reality, this can vary by geography and demographic group).
+
+Keep in mind that this is someone’s belief of their probability of having COVID-19. I’ve used the general prevalence rate in the U.S. But, let’s say a person went to a crowded concert or nightclub a few weeks prior (it takes 1-3 weeks to develop antibodies), they may believe they have a a much higher prior probability of having had COVID-19 and set this value x higher.
+
+New event occurs: positive test result
+
+Probability of positive result if person actually has COVID-19 (y): This is the true positive, which is represented by a test’s sensitivity. In a head-to-head comparison, FDA-approved serological SARS-CoV-2 assays varied widely in methodology and performance across targets. Though, I would estimate average sensitivity at roughly 95%.
+
+Probability of positive result if person is actually COVID-19-negative (z): This is a false positive, which can be calculated as 1 – specificity. From the test comparison, it looks like the average specificity is around 98%, making the false positive rate about 2%. (Note: when the virus was spreading exponentially through the population a couple of months ago, false negatives were the main problematic issue. Now, as the economy reopenes, false positives can be more problematic in, for example, using antibody test results for “immunity passports”).
+
+Posterior probability: Estimated likelihood of having COVID-19, given the positive test result
+
+p = xy / (xy + z(1-x))
+
+p = 0.006 * 0.95 / (0.006 * 0.95 + 0.02 (1-0.006))
+
+p = 0.2220
+
+This means I have a 22.2% chance of having had COVID-19 given the positive test result.
+
+This isn’t very conclusive so our doctor orders a second test to confirm. I run this logic again chaining the 22.20% posterior probability I got before and using it as our new prior probability.
+
+p = xy / (xy + z(1-x))
+
+p = 0.2220 * 0.95 / (0.2220 * 0.95 + 0.02 (1-0.2220))
+
+p = 0.9390
+
+The likelihood that I had COVID-19, given a positive test result the second time is now much higher at 93.9%.
